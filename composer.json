@@ -1,12 +1,12 @@
 {
-    "name": "wyrihaximus/sli-fly",
-    "description": "Flysystem Service Provider for Silex",
+    "name": "wyrihaximus/pimple-flysystem-service",
+    "description": "Flysystem Service for Pimple",
     "license": "MIT",
     "keywords": [
         "flysystem",
         "filesystem",
-        "silex",
-        "service-provider"
+        "pimple",
+        "service"
     ],
     "authors": [
         {
@@ -16,12 +16,13 @@
         }
     ],
     "require": {
+        "php": ">=5.4",
         "league/flysystem": "^1.0",
-        "silex/silex": "~1.2"
+        "pimple/pimple": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "WyriHaximus\\SliFly\\": "src/"
+            "WyriHaximus\\Pimple\\": "src/"
         }
     },
     "require-dev": {

@@ -1,21 +1,19 @@
 <?php
 
-namespace WyriHaximus\SliFly;
+namespace WyriHaximus\Pimple;
 
 use League\Flysystem\Filesystem;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
 
-class FlysystemServiceProvider implements ServiceProviderInterface
+trait FlysystemServiceProviderTrait
 {
     /**
      * Register this service provider with the Application.
      *
-     * @param Application $app Application.
+     * @param \Pimple $app Application.
      *
      * @return void
      */
-    public function register(Application $app)
+    protected function registerFlysystem(\Pimple $app)
     {
         $app['flysystem.filesystems'] = array();
         $app['flysystems'] = $app->share(function (Application $app) {
@@ -25,17 +23,6 @@ class FlysystemServiceProvider implements ServiceProviderInterface
             }
             return $flysystems;
         });
-    }
-
-    /**
-     * Nothing to see here move along.
-     *
-     * @param Application $app Application.
-     *
-     * @return void
-     */
-    public function boot(Application $app)
-    {
     }
 
     /**

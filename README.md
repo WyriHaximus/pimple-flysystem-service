@@ -1,38 +1,3 @@
-SliFly
-======
-
-[Flysystem](http://flysystem.thephpleague.com/) service provider for [Silex](http://silex.sensiolabs.org/).
-
-## Installation ##
-
-To install via [Composer](http://getcomposer.org/), use the command below, it will automatically detect the latest version and bind it with `~`.
-
-```
-composer require wyrihaximus/sli-fly 
-```
-
-## Usage ##
-
-Adapters have to be setup as an associative array where the key defines the alias to be used later in the application. The value array contains two indexes. One `adapter` holding the fully namespaced adapter class name, and `args` for all the arguments pass into adapter. 
-
-```php
-$app->register(new WyriHaximus\SliFly\FlysystemServiceProvider(), [
-    'flysystem.filesystems' => [
-        'local__DIR__' => [
-            'adapter' => 'League\Flysystem\Adapter\Local',
-            'args' => [
-                __DIR__,
-            ],
-        ],
-    ],
-]);
-```
-
-Defined aliases can be accessed as demonstrated below:
-
-```php
-var_export($app['flysystems']['local__DIR__']->listContents());
-```
 
 ## License ##
 
