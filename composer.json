@@ -25,10 +25,16 @@
             "WyriHaximus\\Pimple\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "WyriHaximus\\Pimple\\Tests\\": "tests/"
+        }
+    },
     "require-dev": {
         "vectorface/dunit": "~2.0",
         "squizlabs/php_codesniffer": "~1.0",
         "object-calisthenics/phpcs-calisthenics-rules": "~1.0",
-        "phpunit/phpunit": "~4.4"
+        "phpunit/phpunit": "~4.4",
+        "phake/phake": "^1.0"
     }
 }
