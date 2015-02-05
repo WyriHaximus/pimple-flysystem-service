@@ -16,7 +16,7 @@ trait FlysystemServiceProviderTrait
     protected function registerFlysystem(\Pimple $app)
     {
         $app['flysystem.filesystems'] = array();
-        $app['flysystems'] = $app->share(function (Application $app) {
+        $app['flysystems'] = $app->share(function (\Pimple $app) {
             $flysystems = new \Pimple();
             foreach ($app['flysystem.filesystems'] as $alias => $parameters) {
                 $flysystems[$alias] = $this->buildFilesystem($parameters);
