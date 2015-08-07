@@ -3,6 +3,11 @@
 namespace WyriHaximus\Pimple;
 
 use League\Flysystem\Filesystem;
+use League\Flysystem\Plugin\EmptyDir;
+use League\Flysystem\Plugin\GetWithMetadata;
+use League\Flysystem\Plugin\ListFiles;
+use League\Flysystem\Plugin\ListPaths;
+use League\Flysystem\Plugin\ListWith;
 
 trait FlysystemServiceProviderTrait
 {
@@ -16,10 +21,17 @@ trait FlysystemServiceProviderTrait
     protected function registerFlysystems(\Pimple $app)
     {
         $app['flysystem.filesystems'] = [];
+        $app['flysystem.plugins'] = [
+            new EmptyDir(),
+            new GetWithMetadata(),
+            new ListFiles(),
+            new ListPaths(),
+            new ListWith(),
+        ];
         $app['flysystems'] = $app->share(function (\Pimple $app) {
             $flysystems = new \Pimple();
             foreach ($app['flysystem.filesystems'] as $alias => $parameters) {
-                $flysystems[$alias] = $this->buildFilesystem($parameters);
+                $flysystems[$alias] = $this->buildFilesystem($app, $parameters);
             }
             return $flysystems;
         });
@@ -32,9 +44,16 @@ trait FlysystemServiceProviderTrait
      *
      * @return Filesystem
      */
-    protected function buildFilesystem(array $parameters)
+    protected function buildFilesystem(\Pimple $app, array $parameters)
     {
         $adapter = new \ReflectionClass($parameters['adapter']);
-        return new Filesystem($adapter->newInstanceArgs($parameters['args']));
+        $filesystem = new Filesystem($adapter->newInstanceArgs($parameters['args']));
+
+        foreach ($app['flysystem.plugins'] as $plugin) {
+            $plugin->setFilesystem($filesystem);
+            $filesystem->addPlugin($plugin);
+        }
+
+        return $filesystem;
     }
 }
