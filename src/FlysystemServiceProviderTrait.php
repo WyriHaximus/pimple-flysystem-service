@@ -47,7 +47,7 @@ trait FlysystemServiceProviderTrait
     protected function buildFilesystem(\Pimple $app, array $parameters)
     {
         $adapter = new \ReflectionClass($parameters['adapter']);
-        $filesystem = new Filesystem($adapter->newInstanceArgs($parameters['args']));
+        $filesystem = new Filesystem($adapter->newInstanceArgs($parameters['args']), $this->getConfig($parameters));
 
         foreach ($app['flysystem.plugins'] as $plugin) {
             $plugin->setFilesystem($filesystem);
@@ -55,5 +55,14 @@ trait FlysystemServiceProviderTrait
         }
 
         return $filesystem;
+    }
+
+    protected function getConfig(array $parameters)
+    {
+        if (isset($parameters['config'])) {
+            return $parameters['config'];
+        }
+
+        return null;
     }
 }

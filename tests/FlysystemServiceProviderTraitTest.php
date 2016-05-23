@@ -14,8 +14,13 @@ class FlysystemServiceProviderTraitTest extends \PHPUnit_Framework_TestCase
                 'args' => [
                     __DIR__,
                 ],
+                'config' => [
+                    'foo' => 'bar',
+                ],
             ],
         ];
         $this->assertInstanceOf('League\Flysystem\Filesystem', $pimple['flysystems']['local']);
+        $this->assertTrue($pimple['flysystems']['local']->getConfig()->has('foo'));
+        $this->assertSame('bar', $pimple['flysystems']['local']->getConfig()->get('foo'));
     }
 }
