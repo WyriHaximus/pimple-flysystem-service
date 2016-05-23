@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
+        "php": "^5.4||^7.0",
         "league/flysystem": "^1.0",
         "pimple/pimple": "^1.0"
     },

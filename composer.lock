@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "65050ae59479e506a539acdb762365b2",
+    "hash": "cccedc49ea7a224f0497ed69ffa6872e",
+    "content-hash": "df4d10d93fc0c9cf81855be0267896b0",
     "packages": [
         {
             "name": "league/flysystem",
@@ -1270,7 +1271,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4"
+        "php": "^5.4||^7.0"
     },
     "platform-dev": []
 }
