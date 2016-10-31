@@ -2,11 +2,13 @@
 
 namespace WyriHaximus\Pimple\Tests;
 
+use Pimple\Container;
+
 class FlysystemServiceProviderTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function testRegisterFlysystems()
     {
-        $pimple = new \Pimple();
+        $pimple = new Container();
         (new FlysystemServiceProvider())->registerFlysystemsTest($pimple);
         $pimple['flysystem.filesystems'] = [
             'local' => [
