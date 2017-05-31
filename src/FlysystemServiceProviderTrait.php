@@ -2,6 +2,7 @@
 
 namespace WyriHaximus\Pimple;
 
+use League\Flysystem\MountManager;
 use Pimple\Container;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Plugin\EmptyDir;
@@ -35,6 +36,14 @@ trait FlysystemServiceProviderTrait
                 $flysystems[$alias] = $this->buildFilesystem($app, $parameters);
             }
             return $flysystems;
+        };
+
+        $app['flysystem.mount_manager'] = function (Container $app) {
+            $mountManager = new MountManager();
+            foreach ($app['flysystem.filesystems'] as $alias => $parameters) {
+                $mountManager->mountFilesystem($alias, $app['flysystems'][$alias]);
+            }
+            return $mountManager;
         };
     }
 
